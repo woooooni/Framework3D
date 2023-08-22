@@ -1,0 +1,2 @@
+﻿  MainApp.cpp
+d:\정의훈\137\framework\client\public\mainapp.h(35): fatal error C1083: 포함 파일을 열 수 없습니다. 'Base.h': No such file or directory
