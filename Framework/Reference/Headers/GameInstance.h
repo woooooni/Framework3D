@@ -15,8 +15,8 @@ private:
 	virtual ~CGameInstance() = default;
 
 public: /* For.GameInstance */
-	HRESULT Initialize_Engine(const GRAPHIC_DESC& GraphicDesc);
-	void Tick(_float fTimeDelta);
+	HRESULT Initialize_Engine(const GRAPHIC_DESC& GraphicDesc, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext);
+	void Tick_Engine(_float fTimeDelta);
 
 public: /* For.Timer_Manager */
 	_float Compute_TimeDelta(const wstring& strTimerTag);

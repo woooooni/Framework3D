@@ -42,9 +42,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 응용 프로그램 초기화를 수행합니다.
     if (!InitInstance (hInstance, nCmdShow))
-    {
         return FALSE;
-    }
 
 	pMainApp = CMainApp::Create();
 	if (nullptr == pMainApp)

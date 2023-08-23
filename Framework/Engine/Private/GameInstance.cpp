@@ -7,28 +7,31 @@ IMPLEMENT_SINGLETON(CGameInstance)
 CGameInstance::CGameInstance()
 	: m_pTimer_Manager(CTimer_Manager::GetInstance())
 	, m_pGraphic_Device(CGraphic_Device::GetInstance())
+	// , m_pInput_Device(CInput_Device::GetInstance())
 {
 	Safe_AddRef(m_pGraphic_Device);
 	Safe_AddRef(m_pTimer_Manager);
 }
 
-HRESULT CGameInstance::Initialize_Engine(const GRAPHIC_DESC& GraphicDesc)
+HRESULT CGameInstance::Initialize_Engine(const GRAPHIC_DESC& GraphicDesc, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext)
 {
 	/* 그래픽디바이스 초기화 처리. */
-	if (FAILED(m_pGraphic_Device->Ready_Graphic_Device(GraphicDesc.hWnd, GraphicDesc.eWinMode, GraphicDesc.iWinSizeX, GraphicDesc.iWinSizeY, nullptr, nullptr)))
+	if (FAILED(m_pGraphic_Device->Ready_Graphic_Device(GraphicDesc.hWnd, GraphicDesc.eWinMode, GraphicDesc.iWinSizeX, GraphicDesc.iWinSizeY, ppDevice, ppContext)))
 		return E_FAIL;
+	/* 입력디바이스 초기화 처리. */
+	
 
 	/* 사운드디바이스 초기화 처리. */
-	/* 입력디바이스 초기화 처리. */
 
 	/* 오브젝트 매니져의 예약 처리. */
 	/* 컴포넌트 매니져의 예약 처리. */
 
-	return E_NOTIMPL;
+	return S_OK;
 }
 
-void CGameInstance::Tick(_float fTimeDelta)
+void CGameInstance::Tick_Engine(_float fTimeDelta)
 {
+
 }
 
 _float CGameInstance::Compute_TimeDelta(const wstring & strTimerTag)
@@ -49,19 +52,29 @@ HRESULT CGameInstance::Add_Timer(const wstring & strTimerTag)
 
 HRESULT CGameInstance::Clear_BackBuffer_View(_float4 vClearColor)
 {
-	return E_NOTIMPL;
+	if (nullptr == m_pGraphic_Device)
+		return E_FAIL;
+
+	return m_pGraphic_Device->Clear_BackBuffer_View(vClearColor);
 }
 
 HRESULT CGameInstance::Clear_DepthStencil_View()
 {
-	return E_NOTIMPL;
+	if (nullptr == m_pGraphic_Device)
+		return E_FAIL;
+
+	return m_pGraphic_Device->Clear_DepthStencil_View();
 }
 
 HRESULT CGameInstance::Present()
 {
-	return E_NOTIMPL;
+	if (nullptr == m_pGraphic_Device)
+		return E_FAIL;
+
+	return m_pGraphic_Device->Present();
 }
 
 void CGameInstance::Free()
 {
+
 }

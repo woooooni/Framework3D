@@ -15,8 +15,8 @@ private:
 	virtual ~CGameInstance() = default;
 
 public: /* For.GameInstance */
-	HRESULT Initialize_Engine(const GRAPHIC_DESC& GraphicDesc);
-	void Tick(_float fTimeDelta);
+	HRESULT Initialize_Engine(const GRAPHIC_DESC& GraphicDesc, ID3D11Device** ppDevice, ID3D11DeviceContext** ppContext);
+	void Tick_Engine(_float fTimeDelta);
 
 public: /* For.Timer_Manager */
 	_float Compute_TimeDelta(const wstring& strTimerTag);
@@ -27,9 +27,14 @@ public: /* For.Graphic_Device */
 	HRESULT Clear_DepthStencil_View();	
 	HRESULT Present();
 
+public:
+	/* For.InputDevice */
+
+
 private:
 	class CTimer_Manager*			m_pTimer_Manager = { nullptr };
 	class CGraphic_Device*			m_pGraphic_Device = { nullptr };
+	// class CInput_Device*			m_pInput_Device = { nullptr };
 
 public:
 	virtual void Free() override;
